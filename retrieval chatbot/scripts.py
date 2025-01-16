@@ -1,4 +1,5 @@
-# script.py
+
+# -*- coding: utf-8 -*-
 from collections import Counter
 from responses import responses, blank_spot
 from user_functions import preprocess, compare_overlap, extract_nouns, compute_similarity
@@ -12,7 +13,6 @@ exit_commands = ("quit", "goodbye", "exit", "no")
 
 class ChatBot:
     def __init__(self):
-        # Initialize menu items and categories
         self.menu_items = {
             "steak": ["meat", "beef", "ribeye", "sirloin", "filet"],
             "pasta": ["spaghetti", "noodles", "fettuccine", "linguine", "penne"],
@@ -89,7 +89,11 @@ class ChatBot:
         return input("\nWhat else would you like to know about our menu? ")
 
     def chat(self):
-        print("Welcome to our restaurant! \ud83c\udf7d\ufe0f")
+        try:
+            print("Welcome to our restaurant! 🍽️")  # Using a simple emoji
+        except UnicodeEncodeError:
+            print("Welcome to our restaurant!")  # Fallback without emoji
+            
         print("You can ask about our dishes, prices, ingredients, or dietary options.")
         user_message = input("\nWhat would you like to know? ")
 

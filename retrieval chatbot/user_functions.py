@@ -1,24 +1,26 @@
 import re
 from collections import Counter
 import spacy
-word2vec = spacy.load('en')
 from nltk import pos_tag
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
+
+word2vec = spacy.load('en_core_web_sm')
+
 stop_words = set(stopwords.words("english"))
 
 def preprocess(input_sentence):
     input_sentence = input_sentence.lower()
-    input_sentence = re.sub(r'[^\w\s]','',input_sentence)
+    input_sentence = re.sub(r'[^\w\s]', '', input_sentence)
     tokens = word_tokenize(input_sentence)
     input_sentence = [i for i in tokens if not i in stop_words]
-    return(input_sentence)
+    return input_sentence
 
 def compare_overlap(user_message, possible_response):
     similar_words = 0
     for token in user_message:
         if token in possible_response:
-              similar_words += 1
+            similar_words += 1
     return similar_words
   
 def extract_nouns(tagged_message):
@@ -33,4 +35,3 @@ def compute_similarity(tokens, category):
     for token in tokens:
         output_list.append([token.text, category.text, token.similarity(category)])
     return output_list
-  
